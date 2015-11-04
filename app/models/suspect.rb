@@ -1,0 +1,3 @@
+class Suspect < Card
+
+end

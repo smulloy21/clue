@@ -1,0 +1,3 @@
+class Weapon < Card
+
+end

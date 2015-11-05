@@ -1,16 +1,24 @@
 <h2>Welcome to the <%= @room.name %>, <%= @player.name %></h2>
 
 <h2>Your cards are:
-  <% @player.cards.each do |card| %>
-  <%= card.name %>
-  <% end %>
+  <%= @player.cards.collect {|c| c.name}.to_sentence %>
 </h2>
 
 
-<h4>You can get from here to:</h4>
+<% if !@player.accusation %>
+  <% if true %>
+    <%= render 'guesses/form' %>
+  <% end %>
+
+  <% if true %>
+    <%= render 'accusations/form' %>
+  <% end %>
+<% end %>
+
+<!-- <h4>You can get from here to:</h4>
 <% @room.next_rooms.each do |room| %>
 <%= link_to room.name, game_room_path(@game, room) %>
-<% end %>
+<% end %> -->
 
 
 <!-- answer and opponents cards:

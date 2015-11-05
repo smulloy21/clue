@@ -1,0 +1,14 @@
+<%= form_for @accusation do |f| %>
+  <%= f.hidden_field :player_id, :value => @player.id %>
+  <% prefix = "card_selections[]" %>
+    <%= f.fields_for prefix, f.object.card_selections[0] do |select_form| %>
+      <%= select_form.collection_select(:card_id, Suspect.all, :id, :name, {}, { class: 'form-control'}) %>
+    <% end %>
+    <%= f.fields_for prefix, f.object.card_selections[1] do |select_form| %>
+      <%= select_form.collection_select(:card_id, Room.all, :id, :name, {}, { class: 'form-control'}) %>
+    <% end %>
+    <%= f.fields_for prefix, f.object.card_selections[2] do |select_form| %>
+      <%= select_form.collection_select(:card_id, Weapon.all, :id, :name, {}, { class: 'form-control'}) %>
+    <% end %>
+  <%= f.submit(:class => 'btn btn-default', :value => 'make accusation') %>
+<% end %>

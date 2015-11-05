@@ -11,10 +11,17 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151105013445) do
+ActiveRecord::Schema.define(version: 20151105175105) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "accusations", force: :cascade do |t|
+    t.integer  "player_id"
+    t.boolean  "correct",    default: false
+    t.datetime "created_at",                 null: false
+    t.datetime "updated_at",                 null: false
+  end
 
   create_table "adjoining_rooms", force: :cascade do |t|
     t.integer "room_id"
@@ -38,6 +45,17 @@ ActiveRecord::Schema.define(version: 20151105013445) do
 
   add_index "card_dealings", ["cardable_type", "cardable_id"], name: "index_card_dealings_on_cardable_type_and_cardable_id", using: :btree
 
+  create_table "card_selections", force: :cascade do |t|
+    t.integer  "player_id"
+    t.integer  "guessable_id"
+    t.string   "guessable_type"
+    t.integer  "card_id"
+    t.datetime "created_at",     null: false
+    t.datetime "updated_at",     null: false
+  end
+
+  add_index "card_selections", ["guessable_type", "guessable_id"], name: "index_card_selections_on_guessable_type_and_guessable_id", using: :btree
+
   create_table "cards", force: :cascade do |t|
     t.string   "name"
     t.string   "type"
@@ -47,6 +65,12 @@ ActiveRecord::Schema.define(version: 20151105013445) do
   end
 
   create_table "games", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "guesses", force: :cascade do |t|
+    t.integer  "player_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end

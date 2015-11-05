@@ -4,5 +4,6 @@ class Player < ActiveRecord::Base
   has_many :cards, through: :card_dealings
 
 
-  scope :user, -> { where(user: true) }
+  scope :user, -> { where(user: true).first }
+  scope :opponents, -> { where(user: false) }
 end

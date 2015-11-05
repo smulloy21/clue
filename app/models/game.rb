@@ -4,7 +4,7 @@ class Game < ActiveRecord::Base
   has_one :answer, dependent: :destroy
   has_many :card_dealings, dependent: :destroy
   has_many :cards, through: :card_dealings
-  has_many :players
+  has_many :players, dependent: :destroy
 
   private
 
@@ -30,7 +30,7 @@ class Game < ActiveRecord::Base
 
     # deal remaining cards to players
     cards = (suspects - [who]) + (rooms - [where]) + (weapons - [how])
-    #
+
     self.players.each do |player|
       3.times do
         card = cards.shuffle.pop
@@ -38,10 +38,6 @@ class Game < ActiveRecord::Base
         cards = (cards - [card])
       end
     end
-
   end
 
-  #   get all cards
-  #   deal one of each type to answer
-  #   deal the remaining ones out to players randomly
 end

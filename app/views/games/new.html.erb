@@ -1,0 +1,13 @@
+<h1>Get ready to play brain warp....</h1>
+
+<div class="row">
+
+  <% @suspects.each do |suspect| %>
+    <%= link_to games_path(:who => suspect.name), method: :create do %>
+      <div class="col-xs-2">
+        <%= suspect.name %>
+      </div>
+    <% end %>
+  <% end %>
+
+</div>

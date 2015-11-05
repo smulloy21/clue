@@ -1,0 +1,29 @@
+<h2>Welcome to the <%= @room.name %>, <%= @player.name %></h2>
+
+<h2>Your cards are:
+  <% @player.cards.each do |card| %>
+  <%= card.name %>
+  <% end %>
+</h2>
+
+
+<h4>You can get from here to:</h4>
+<% @room.next_rooms.each do |room| %>
+<%= link_to room.name, game_room_path(@game, room) %>
+<% end %>
+
+
+<!-- answer and opponents cards:
+<p>It was <%= @answer.cards.suspect.name %> in the <%= @answer.cards.room.name %>
+with the <%= @answer.cards.weapon.name %></p>
+
+<ul>
+  <% @game.players.opponents.each do |player| %>
+    <li><%= player.name %></li>
+    <ul>
+    <% player.cards.each do |card| %>
+    <li><%= card.name %></li>
+    <% end %>
+    </ul>
+  <% end %>
+</ul> -->

@@ -4,6 +4,7 @@ class RoomsController < ApplicationController
     @game = Game.find(params[:game_id])
     @answer = @game.answer
     @player = @game.players.user
+    @players = @game.players.order(:id)
     @guess = Guess.new()
     3.times do @guess.card_selections.build end
     @accusation = Accusation.new()

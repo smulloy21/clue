@@ -4,22 +4,28 @@
   <%= @player.cards.collect {|c| c.name}.to_sentence %>
 </h2>
 
-
-<% if !@player.accusation %>
-  <% if true %>
-    <%= render 'guesses/form' %>
+<% if @players[@game.turn] == @player %>
+  <h2>Change Room:</h2>
+  <% @room.next_rooms.each do |room| %>
+  <div class="col-xs-4 text-center">
+    <h4><%= link_to room.name, game_room_path(@game, room) %></h4>
+  </div>
   <% end %>
+  <br><br>
 
-  <% if true %>
-    <%= render 'accusations/form' %>
+  <% if !@player.accusation %>
+    <% if true %>
+      <%= render 'guesses/form' %>
+    <% end %>
+
+    <% if true %>
+      <%= render 'accusations/form' %>
+    <% end %>
   <% end %>
+<% else %>
+  <h2>It is <%= @players[@game.turn].name %>'s turn.</h2>
+  <% take_turn(@game) %>
 <% end %>
-
-<!-- <h4>You can get from here to:</h4>
-<% @room.next_rooms.each do |room| %>
-<%= link_to room.name, game_room_path(@game, room) %>
-<% end %> -->
-
 
 <!-- answer and opponents cards:
 <p>It was <%= @answer.cards.suspect.name %> in the <%= @answer.cards.room.name %>

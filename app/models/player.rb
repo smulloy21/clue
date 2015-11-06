@@ -10,4 +10,5 @@ class Player < ActiveRecord::Base
 
   scope :user, -> { where(user: true).first }
   scope :opponents, -> { where(user: false) }
+
 end

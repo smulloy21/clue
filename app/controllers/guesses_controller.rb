@@ -4,6 +4,8 @@ class GuessesController < ApplicationController
     card_params['card_selections'].each do |card|
       @guess.card_selections.create(player_id: @guess.player_id, card_id: card['card_id'])
     end
+    @game = @guess.player.game
+    @game.turn < @game.players.length - 1 ? @game.update(turn: @game.turn + 1) : @game.update(turn: 0)
     flash[:notice] = 'You guessed ' + @guess.cards.suspect.name + ' in the ' + @guess.cards.room.name + ' with the ' + @guess.cards.weapon.name + '.'
     session[:return_to] ||= request.referer
     redirect_to session.delete(:return_to)

@@ -5,6 +5,7 @@ class GamesController < ApplicationController
   end
 
   def create
+    binding.pry
     @game = Game.create()
     @room = Room.offset(rand(Room.count)).first
     @player = @game.players.where(name: params['who']).first

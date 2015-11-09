@@ -1,0 +1,5 @@
+<% if !player.disprove_guess(guess) %>
+  <h2><%= player.name %> passes.</h2>
+<% else %>
+  <h2><%= player.name %> reveals <%= player.disprove_guess(guess).name %>.</h2>
+<% end %>

@@ -1,10 +1,12 @@
 module ApplicationHelper
-  # def take_turn(game)
-  #   @players[game.turn].guesses.create()
-  #   @players[game.turn].guesses.last.card_selections.push(CardSelection.create(card_id: Suspect.offset(rand(Suspect.count)).first.id))
-  #   @players[game.turn].guesses.last.card_selections.push(CardSelection.create(card_id: Room.offset(rand(Room.count)).first.id))
-  #   @players[game.turn].guesses.last.card_selections.push(CardSelection.create(card_id: Weapon.offset(rand(Weapon.count)).first.id))
-  #
-  #   game.turn < game.players.length - 1 ? game.update(turn: game.turn + 1) : game.update(turn: 0)
-  # end
+  def next_player(player)
+     next_player = (player.name == 'Professor Plum' ? Player.find(player.id - 5) : Player.find(player.id + 1))
+  end
+
+  def disprove_guess(player, guess)
+    render('games/player', player: player, guess: guess) +
+    (player.disprove_guess(guess) == false ? disprove_guess((next_player(player)), guess) : nil)
+  end
+
+
 end

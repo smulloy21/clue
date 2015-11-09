@@ -20,4 +20,12 @@ class Player < ActiveRecord::Base
     self.guesses.last.card_selections.push(CardSelection.create(card_id: self.possible_cards.suspects.offset(rand(self.possible_cards.suspects.count)).first.id))
   end
 
+  def disprove_guess(guess)
+    if (self.cards & guess.cards).empty?
+      false
+    else
+      (self.cards & guess.cards).sample
+    end
+  end
+
 end

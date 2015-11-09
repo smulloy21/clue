@@ -1,12 +1,13 @@
-<h2>Welcome to the <%= @room.name %>, <%= @player.name %></h2>
+<p>Welcome to the <%= @room.name %>, <%= @player.name %></p>
 
-<h2>Your cards are:
+
+<p>Your cards are:
   <%= @player.cards.collect {|c| c.name}.to_sentence %>
-</h2>
+</p>
 
-<h2>Your possible suspects: <%= @player.possible_cards.suspects.collect {|c| c.name}.to_sentence %></h2>
+<!-- <h2>Your possible suspects: <%= @player.possible_cards.suspects.collect {|c| c.name}.to_sentence %></h2>
 <h2>Your possible rooms: <%= @player.possible_cards.rooms.collect {|c| c.name}.to_sentence %></h2>
-<h2>Your possible weapons: <%= @player.possible_cards.weapons.collect {|c| c.name}.to_sentence %></h2>
+<h2>Your possible weapons: <%= @player.possible_cards.weapons.collect {|c| c.name}.to_sentence %></h2> -->
 
 <% if @players[@game.turn] == @player %>
   <h2>Change Room:</h2>
@@ -30,6 +31,8 @@
   <h2>It is <%= @players[@game.turn].name %>'s turn.</h2>
   <% @players[@game.turn].take_turn %>
   <h2><%= @players[@game.turn].name %> guessed <%= @players[@game.turn].guesses.last.cards.suspect.name %> in the <%= @players[@game.turn].guesses.last.cards.room.name %> with the <%= @players[@game.turn].guesses.last.cards.weapon.name %>.</h2>
+  <%= disprove_guess(next_player(@players[@game.turn]), @players[@game.turn].guesses.last) %>
+
   <%= link_to 'Next', game_path(@game), :data => {:method => 'patch'} %>
 <% end %>
 
@@ -37,13 +40,14 @@ answer and opponents cards:
 <p>It was <%= @answer.cards.suspect.name %> in the <%= @answer.cards.room.name %>
 with the <%= @answer.cards.weapon.name %></p>
 
-<ul>
-  <% @game.players.opponents.each do |player| %>
-    <li><%= player.name %></li>
-    <ul>
-    <% player.cards.each do |card| %>
-    <li><%= card.name %></li>
-    <% end %>
-    </ul>
+
+<% @players.each do |player| %>
+  <div class="col-xs-2">
+  <li><%= player.name %></li>
+  <ul>
+  <% player.cards.each do |card| %>
+  <li><%= card.name %></li>
   <% end %>
-</ul>
+  </ul>
+  </div>
+<% end %>

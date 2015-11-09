@@ -6,6 +6,9 @@ class Game < ActiveRecord::Base
   has_many :cards, through: :card_dealings
   has_many :players, dependent: :destroy
 
+  def next_turn
+    self.turn < self.players.length - 1 ? self.update(turn: self.turn + 1) : self.update(turn: 0)
+  end
   private
 
   def deal
@@ -37,7 +40,12 @@ class Game < ActiveRecord::Base
         player.card_dealings << CardDealing.create(card_id: card.id, game_id: self.id)
         cards = (cards - [card])
       end
+      possible_cards = Card.all - player.cards
+      possible_cards.each do |card|
+        player.card_possibles << CardPossible.create(card_id: card.id)
+      end
     end
   end
+
 
 end

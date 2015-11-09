@@ -11,4 +11,11 @@ class GamesController < ApplicationController
     @player.update(user: true)
     redirect_to game_room_path(@game, @room)
   end
+
+  def update
+    @game = Game.find(params[:id])
+    @game.next_turn
+    session[:return_to] ||= request.referer
+    redirect_to session.delete(:return_to)
+  end
 end

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151105234114) do
+ActiveRecord::Schema.define(version: 20151109181752) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -44,6 +44,13 @@ ActiveRecord::Schema.define(version: 20151105234114) do
   end
 
   add_index "card_dealings", ["cardable_type", "cardable_id"], name: "index_card_dealings_on_cardable_type_and_cardable_id", using: :btree
+
+  create_table "card_possibles", force: :cascade do |t|
+    t.integer  "player_id"
+    t.integer  "card_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
   create_table "card_selections", force: :cascade do |t|
     t.integer  "player_id"

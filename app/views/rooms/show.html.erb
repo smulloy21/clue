@@ -4,6 +4,10 @@
   <%= @player.cards.collect {|c| c.name}.to_sentence %>
 </h2>
 
+<h2>Your possible suspects: <%= @player.possible_cards.suspects.collect {|c| c.name}.to_sentence %></h2>
+<h2>Your possible rooms: <%= @player.possible_cards.rooms.collect {|c| c.name}.to_sentence %></h2>
+<h2>Your possible weapons: <%= @player.possible_cards.weapons.collect {|c| c.name}.to_sentence %></h2>
+
 <% if @players[@game.turn] == @player %>
   <h2>Change Room:</h2>
   <% @room.next_rooms.each do |room| %>
@@ -24,10 +28,12 @@
   <% end %>
 <% else %>
   <h2>It is <%= @players[@game.turn].name %>'s turn.</h2>
-  <% take_turn(@game) %>
+  <% @players[@game.turn].take_turn %>
+  <h2><%= @players[@game.turn].name %> guessed <%= @players[@game.turn].guesses.last.cards.suspect.name %> in the <%= @players[@game.turn].guesses.last.cards.room.name %> with the <%= @players[@game.turn].guesses.last.cards.weapon.name %>.</h2>
+  <%= link_to 'Next', game_path(@game), :data => {:method => 'patch'} %>
 <% end %>
 
-<!-- answer and opponents cards:
+answer and opponents cards:
 <p>It was <%= @answer.cards.suspect.name %> in the <%= @answer.cards.room.name %>
 with the <%= @answer.cards.weapon.name %></p>
 
@@ -40,4 +46,4 @@ with the <%= @answer.cards.weapon.name %></p>
     <% end %>
     </ul>
   <% end %>
-</ul> -->
+</ul>

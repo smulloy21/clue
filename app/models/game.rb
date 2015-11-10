@@ -44,6 +44,7 @@ class Game < ActiveRecord::Base
       possible_cards.each do |card|
         player.card_possibles << CardPossible.create(card_id: card.id)
       end
+      player.current_room = rooms.sample
     end
   end
 

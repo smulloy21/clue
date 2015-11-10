@@ -10,6 +10,9 @@ class Player < ActiveRecord::Base
   has_many :card_possibles, dependent: :destroy
   has_many :possible_cards, through: :card_possibles, source: :card
 
+  has_one :player_location
+  has_one :current_room, through: :player_location, source: :room
+
   scope :user, -> { where(user: true).first }
   scope :opponents, -> { where(user: false) }
 

@@ -5,12 +5,11 @@ class GamesController < ApplicationController
   end
 
   def create
-    binding.pry
     @game = Game.create()
-    @room = Room.offset(rand(Room.count)).first
     @player = @game.players.where(name: params['who']).first
     @player.update(user: true)
-    redirect_to game_room_path(@game, @room)
+    room = @player.current_room
+    redirect_to game_room_path(@game, room)
   end
 
   def update

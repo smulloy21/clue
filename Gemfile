@@ -10,6 +10,7 @@ gem 'devise'
 gem 'bootstrap-sass'
 gem 'sass-rails'
 gem 'hirb'
+gem 'highline'
 
 group :development do
   gem 'byebug'

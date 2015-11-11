@@ -8,8 +8,8 @@ class GamesController < ApplicationController
     @game = Game.create()
     @player = @game.players.where(name: params['who']).first
     @player.update(user: true)
-    room = @player.current_room
-    redirect_to game_room_path(@game, room)
+    @room = @player.current_room
+    redirect_to game_room_path(@game, @room)
   end
 
   def update

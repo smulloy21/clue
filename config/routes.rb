@@ -3,6 +3,6 @@ Rails.application.routes.draw do
   resources :games do
     resources :rooms, only: ['show']
   end
-  resources :guesses, only: ['create']
+  resources :guesses, only: ['create', 'update']
   resources :accusations, only: ['create']
 end

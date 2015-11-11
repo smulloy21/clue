@@ -9,7 +9,7 @@
 <h2>Your possible rooms: <%= @player.possible_cards.rooms.collect {|c| c.name}.to_sentence %></h2>
 <h2>Your possible weapons: <%= @player.possible_cards.weapons.collect {|c| c.name}.to_sentence %></h2> -->
 
-<% if @players[@game.turn] == @player %>
+<% if @current_player == @player %>
   <h2>Change Room:</h2>
   <% @room.next_rooms.each do |room| %>
   <div class="col-xs-4 text-center">
@@ -28,11 +28,11 @@
     <% end %>
   <% end %>
 <% else %>
-  <h2>It is <%= @players[@game.turn].name %>'s turn.</h2>
-  <% @players[@game.turn].take_turn %>
-  <h2><%= @players[@game.turn].name %> guessed <%= @players[@game.turn].guesses.last.cards.suspect.name %> in the <%= @players[@game.turn].guesses.last.cards.room.name %> with the <%= @players[@game.turn].guesses.last.cards.weapon.name %>.</h2>
-  <%= disprove_guess(next_player(@players[@game.turn]), @players[@game.turn].guesses.last) %>
-
+  <h2 id="game_play"></h2>
+  <h2 id="game_play2"></h2>
+  <h2 id="game_play3"></h2>
+  <!-- <%= link_to 'Next', guess_path(@current_player.guesses.last), :data => {:method => 'patch'}, remote: true  %> -->
+  <!-- <%= disprove_guess(@current_player.next_player, @current_player.guesses.last) %> -->
   <%= link_to 'Next', game_path(@game), :data => {:method => 'patch'} %>
 <% end %>
 
@@ -51,3 +51,27 @@ with the <%= @answer.cards.weapon.name %></p>
   </ul>
   </div>
 <% end %>
+
+
+<script type="text/javascript">
+jQuery(document).ready(function($){
+
+    $("#game_play").lbyl({
+        content: "It is <%= @current_player.name %>'s turn.",
+        speed: 25,
+        finished: function() {
+         $("#game_play2").lbyl({
+            content: "<%= @current_player.name %> went into the <%= @current_player.current_room.name %>.",
+            speed: 25,
+            finished: function() {
+              $("#game_play3").lbyl({
+                content: "<%= @current_player.name %> guessed <%= @current_player.guesses.last.cards.suspect.name %> in the <%= @players[@game.turn].guesses.last.cards.room.name %> with the <%= @players[@game.turn].guesses.last.cards.weapon.name %>.",
+                speed: 25
+              });
+            }
+         });
+       }
+    });
+
+});
+</script>

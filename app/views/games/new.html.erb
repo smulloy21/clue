@@ -3,7 +3,7 @@
 <div class="row">
 
   <% @suspects.each do |suspect| %>
-    <%= link_to games_path(:who => suspect.name), method: :create do %>
+    <%= link_to games_path(:who => suspect.name), method: 'post' do %>
       <div class="col-xs-2">
         <%= suspect.name %>
       </div>

@@ -1,15 +1,15 @@
 <% if player == @player %>
   <% if @player.disprove_guess(guess) == false %>
     <%= javascript_tag "alert('You cannot disprove the guess. Pass?')" %>
-    <h2><%= player.name %> passes.</h2>
+    <%= player.name %> passes.
   <% else %>
     <%= javascript_tag "alert('Reveal #{player.disprove_guess(guess).name}?')" %>
-    <h2><%= player.name %> reveals <%= player.disprove_guess(guess).name %>.</h2>
+    <%= player.name %> reveals <%= player.disprove_guess(guess).name %>.
   <% end %>
 <% else %>
   <% if !player.disprove_guess(guess) %>
-    <h2><%= player.name %> passes.</h2>
+    <%= player.name %> passes.
   <% else %>
-    <h2><%= player.name %> reveals <%= player.disprove_guess(guess).name %>.</h2>
+    <%= player.name %> reveals <%= player.disprove_guess(guess).name %>.
   <% end %>
 <% end %>

@@ -11,6 +11,14 @@ class GuessesController < ApplicationController
     redirect_to session.delete(:return_to)
   end
 
+  def update
+    session[:return_to] ||= request.referer
+    respond_to do |format|
+      format.html { redirect_to session.delete(:return_to) }
+      format.js
+    end
+  end
+
   private
   def guess_params
     params.require(:guess).permit(:player_id)

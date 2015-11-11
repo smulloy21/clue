@@ -12,6 +12,8 @@
 //
 //= require jquery
 //= require jquery_ujs
+//= require jquery.typewriter
 //= require turbolinks
 //= require_tree .
 //= require bootstrap-sprockets
+//= require l-by-l.min.js

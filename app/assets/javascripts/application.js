@@ -17,3 +17,5 @@
 //= require_tree .
 //= require bootstrap-sprockets
 //= require l-by-l.min.js
+//= require jquery-letterfx.min.js
+//= require tuxsudo.min.js

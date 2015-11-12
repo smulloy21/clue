@@ -12,6 +12,17 @@
  *
  *= require_tree .
  *= require_self
+ *= require jquery-letterfx.min.css
  */
  @import 'bootstrap';
  @import 'bootstrap-sprockets';
+
+body {
+  background-color: black;
+}
+.game_play, .game_play2 {
+  display: none;
+}
+h2 {
+  color:white;
+}

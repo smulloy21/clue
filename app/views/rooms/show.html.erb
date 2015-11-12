@@ -28,12 +28,19 @@
     <% end %>
   <% end %>
 <% else %>
-  <h2 id="game_play"></h2>
-  <h2 id="game_play2"></h2>
-  <h2 id="game_play3"></h2>
-  <!-- <%= link_to 'Next', guess_path(@current_player.guesses.last), :data => {:method => 'patch'}, remote: true  %> -->
-  <!-- <%= disprove_guess(@current_player.next_player, @current_player.guesses.last) %> -->
-  <%= link_to 'Next', game_path(@game), :data => {:method => 'patch'} %>
+  <div class="game_play">
+    <h2>It is <%= @current_player.name %>'s turn.</h2>
+    <h2><%= @current_player.name %> went into the <%= @current_player.current_room.name %>.</h2>
+    <h2><%= @current_player.name %> guessed <%= @last_guess.cards.suspect.name %> in the <%= @last_guess.cards.room.name %> with the <%= @last_guess.cards.weapon.name %>.</h2>
+  </div>
+  <div class="game_play2">
+    <%= disprove_guess(@current_player.next_player, @last_guess) %>
+  </div>
+  <%= link_to 'Next', guess_path(@current_player.guesses.last), id: "update", :data => {:method => 'patch'}, remote: true  %>
+  <!-- <div class="disprove">
+    <%= disprove_guess(@current_player.next_player, @current_player.guesses.last) %>
+  </div>
+  <%= link_to 'Next', game_path(@game), :data => {:method => 'patch'} %> -->
 <% end %>
 
 answer and opponents cards:
@@ -54,24 +61,11 @@ with the <%= @answer.cards.weapon.name %></p>
 
 
 <script type="text/javascript">
-jQuery(document).ready(function($){
-
-    $("#game_play").lbyl({
-        content: "It is <%= @current_player.name %>'s turn.",
-        speed: 25,
-        finished: function() {
-         $("#game_play2").lbyl({
-            content: "<%= @current_player.name %> went into the <%= @current_player.current_room.name %>.",
-            speed: 25,
-            finished: function() {
-              $("#game_play3").lbyl({
-                content: "<%= @current_player.name %> guessed <%= @current_player.guesses.last.cards.suspect.name %> in the <%= @players[@game.turn].guesses.last.cards.room.name %> with the <%= @players[@game.turn].guesses.last.cards.weapon.name %>.",
-                speed: 25
-              });
-            }
-         });
-       }
-    });
-
-});
+  $('.game_play').show();
+  $(".game_play > h2").letterfx({"fx":"smear","backwards":false,"timing":50,"fx_duration":"4050ms","letter_end":"rewind","element_end":"stay"});
+  $(window).keypress(function (e) {
+    if (e.keyCode === 0 || e.keyCode === 32) {
+      $('a#update').trigger('click');
+    }
+  });
 </script>

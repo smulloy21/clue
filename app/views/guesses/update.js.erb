@@ -1,3 +1,7 @@
-$("#game_play").fadeOut(function() {
-  $(this).text("World")
-}).fadeIn();
+<% environment.context_class.instance_eval { include Rails.application.routes.url_helpers } %>
+
+jQuery(document).ready(function($){
+  $('.game_play').text(<%= disprove_guess(@current_player.next_player, @last_guess) %>);
+  $(".game_play > h2").letterfx({"fx":"smear","backwards":false,"timing":50,"fx_duration":"4050ms","letter_end":"rewind","element_end":"stay"});
+
+});

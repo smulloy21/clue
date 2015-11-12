@@ -7,6 +7,7 @@ class RoomsController < ApplicationController
     @players = @game.players.order(:id)
     @current_player = @players[@game.turn]
     @current_player.take_turn
+    @last_guess = @current_player.guesses.last
     @guess = Guess.new()
     3.times do @guess.card_selections.build end
     @accusation = Accusation.new()

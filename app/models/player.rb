@@ -13,6 +13,7 @@ class Player < ActiveRecord::Base
   has_one :player_location, dependent: :destroy
   has_one :current_room, through: :player_location, source: :room
 
+
   scope :user, -> { where(user: true).first }
   scope :opponents, -> { where(user: false) }
 
@@ -36,4 +37,7 @@ class Player < ActiveRecord::Base
      next_player = (self.name == 'Professor Plum' ? Player.find(self.id - 5) : Player.find(self.id + 1))
   end
 
+  def to_s
+    "#{name}"
+  end
 end

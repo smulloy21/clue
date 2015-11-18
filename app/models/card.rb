@@ -10,4 +10,8 @@ class Card < ActiveRecord::Base
   scope :weapon, -> { where(type: 'Weapon').first }
   scope :room, -> { where(type: 'Room').first }
   scope :suspect, -> { where(type: 'Suspect').first }
+
+  def to_s
+    "#{name}"
+  end
 end

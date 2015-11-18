@@ -1,7 +1,16 @@
-<% environment.context_class.instance_eval { include Rails.application.routes.url_helpers } %>
+var response1 = <%= @guessing_player.next_player.disprove_guess(@guess) %> ? "<%= @guessing_player.next_player.name %> reveals a card.": "<%= @guessing_player.next_player.name %> passes.";
 
-jQuery(document).ready(function($){
-  $('.game_play').text(<%= disprove_guess(@current_player.next_player, @last_guess) %>);
-  $(".game_play > h2").letterfx({"fx":"smear","backwards":false,"timing":50,"fx_duration":"4050ms","letter_end":"rewind","element_end":"stay"});
+if (!<%= @guessing_player.next_player.disprove_guess(@guess) %>) {
+  response2 = <%= @guessing_player.next_player.next_player.disprove_guess(@guess) %> ? "<%= @guessing_player.next_player.next_player.name %> reveals a card.": "<%= @guessing_player.next_player.next_player.name %> passes.";
+}
 
+$("#response1").lbyl({
+    content: response1,
+    speed: 25,
+    finished: function() {
+     $("#response2").lbyl({
+        content: response2 || "",
+        speed: 25,
+      });
+    }
 });

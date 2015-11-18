@@ -12,6 +12,8 @@ class GuessesController < ApplicationController
   end
 
   def update
+    @guess = Guess.find(params[:id]);
+    @guessing_player = @guess.player;
     session[:return_to] ||= request.referer
     respond_to do |format|
       format.html { redirect_to session.delete(:return_to) }

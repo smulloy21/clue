@@ -5,9 +5,11 @@
   <% @suspects.each do |suspect| %>
     <%= link_to games_path(:who => suspect.name), method: 'post' do %>
       <div class="col-xs-2">
-        <%= suspect.name %>
+        <%= suspect %>
       </div>
     <% end %>
   <% end %>
 
 </div>
+
+<a href="/">I am a link!</a>

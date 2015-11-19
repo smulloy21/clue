@@ -10,7 +10,6 @@ gem 'devise'
 gem 'bootstrap-sass'
 gem 'sass-rails'
 gem 'hirb'
-gem 'highline'
 gem 'jquery-typewriter-rails'
 
 group :development do
@@ -25,6 +24,7 @@ group :test, :development do
   gem 'rspec-rails'
   gem 'launchy'
   gem 'pry'
+  gem 'database_cleaner'
 end
 
 group :test do
@@ -32,6 +32,7 @@ group :test do
   gem 'factory_girl_rails'
   gem 'simplecov', require: false
   gem 'capybara'
+  gem 'poltergeist'
 end
 
 group :production do

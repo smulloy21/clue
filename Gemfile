@@ -10,7 +10,6 @@ gem 'devise'
 gem 'bootstrap-sass'
 gem 'sass-rails'
 gem 'hirb'
-gem 'jquery-typewriter-rails'
 
 group :development do
   gem 'byebug'
